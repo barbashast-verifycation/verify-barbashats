@@ -15,25 +15,22 @@
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh; 
-            /* Habilita el movimiento vertical */
+            /* Habilita el scroll vertical */
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
         }
 
         .header-logo { width: 90px; height: auto; margin-bottom: 10px; }
+        .status { font-size: 26px; font-weight: 800; letter-spacing: 4px; color: #000; margin: 5px 0; }
         
-        .status { 
-            font-size: 26px; font-weight: 800; letter-spacing: 4px; color: #000; margin: 5px 0; 
-        }
         .brand-name { 
             font-size: 13px; color: #888; font-weight: 600; margin-bottom: 25px; 
-            transition: all 0.5s ease; /* Transición suave para los cambios de nombre */
+            transition: all 0.3s ease; /* Para que el cambio de texto no sea brusco */
         }
         
         .cap-container { 
             width: 85%; max-width: 350px; background: #f4f4f4; border-radius: 25px; 
-            padding: 20px; box-sizing: border-box;
-            margin-bottom: 20px;
+            padding: 20px; box-sizing: border-box; margin-bottom: 20px;
         }
         .cap-image { width: 100%; height: auto; border-radius: 15px; }
         
@@ -80,7 +77,6 @@
     <div id="overlay"></div>
 
     <img src="https://capslux.com/cdn/shop/collections/Diseno_sin_titulo_8.png?v=1751835052&width=1500" class="header-logo">
-    
     <div class="status">AUTHENTIC</div>
     <div id="brand-text" class="brand-name">CT GALAXY</div>
 
@@ -106,25 +102,25 @@
             const overlay = document.getElementById('overlay');
             const brandLabel = document.getElementById('brand-text');
             
-            // 1. Mostrar animación de carga
+            // Iniciar animación del logo
             overlay.classList.add('active-overlay');
             logo.classList.remove('spin-animation');
             void logo.offsetWidth; 
             logo.classList.add('spin-animation');
 
-            // 2. Al terminar la vuelta del logo (2.8s)
+            // 1. Cuando el logo termina de girar (2.8 segundos)
             setTimeout(() => {
                 overlay.classList.remove('active-overlay');
                 
-                // Cambia a BARBAS HATS
+                // CAMBIO A BARBAS HATS
                 brandLabel.innerText = "BARBAS HATS";
-                brandLabel.style.color = "#000"; // Resaltamos el color
+                brandLabel.style.color = "#000"; // Se pone negro para resaltar
 
-                // 3. Dejarlo por 3 segundos y luego volver a CT GALAXY
+                // 2. Esperar 3 segundos y VOLVER A CT GALAXY
                 setTimeout(() => {
                     brandLabel.innerText = "CT GALAXY";
-                    brandLabel.style.color = "#888"; // Volver al color original
-                }, 3000); // 3000 milisegundos = 3 segundos
+                    brandLabel.style.color = "#888"; // Vuelve al gris original
+                }, 3000); 
 
             }, 2800);
         }
