@@ -15,21 +15,21 @@
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh; 
-            overflow-y: auto; /* Habilita el movimiento arriba/abajo */
+            /* HABILITA EL MOVIMIENTO ARRIBA Y ABAJO */
+            overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
         }
 
         /* Estilos base */
         .header-logo { width: 90px; height: auto; margin-bottom: 10px; }
         
-        /* Agregamos una transición suave para cuando cambie el texto */
         .status { 
             font-size: 26px; font-weight: 800; letter-spacing: 4px; color: #000; margin: 5px 0; 
-            transition: all 0.5s ease;
+            transition: all 0.4s ease; /* Transición suave para el cambio de texto */
         }
         .brand-name { 
             font-size: 13px; color: #888; font-weight: 600; margin-bottom: 25px; 
-            transition: all 0.5s ease;
+            transition: all 0.4s ease;
         }
         
         .cap-container { 
@@ -42,21 +42,24 @@
         .scan-label { margin-top: 10px; font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: bold; }
         .scan-number { font-size: 22px; font-weight: 900; margin-top: 5px; margin-bottom: 30px; color: #000; }
 
+        /* BOTÓN VERIFY */
         .verify-button {
             background-color: #1a1a1a; color: white; padding: 15px 35px; border-radius: 50px;
             display: flex; align-items: center; justify-content: center; gap: 10px;
             cursor: pointer; font-weight: 800; font-size: 18px; letter-spacing: 2px;
             width: 220px; border: none; transition: transform 0.2s; 
-            margin-bottom: 50px;
+            margin-bottom: 60px; /* Espacio extra al final para permitir el scroll */
         }
         .verify-button:active { transform: scale(0.95); }
 
+        /* FONDO OSCURO (Overlay) */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); z-index: 50;
             opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
 
+        /* LOGO ANIMADO */
         #animated-logo {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0);
@@ -82,8 +85,9 @@
     <div id="overlay"></div>
 
     <img src="https://capslux.com/cdn/shop/collections/Diseno_sin_titulo_8.png?v=1751835052&width=1500" class="header-logo">
-    <div id="text-status" class="status">AUTHENTIC</div>
-    <div id="text-brand" class="brand-name">CT GALAXY</div>
+    
+    <div id="status-text" class="status">AUTHENTIC</div>
+    <div id="brand-text" class="brand-name">CT GALAXY</div>
 
     <div class="cap-container">
         <img src="https://drop-shop.mx/cdn/shop/files/a942fc97-e181-46de-af22-cf9da20754b3.jpg?v=1752198929" class="cap-image">
@@ -105,27 +109,25 @@
         function startVerification() {
             const logo = document.getElementById('animated-logo');
             const overlay = document.getElementById('overlay');
-            const statusTxt = document.getElementById('text-status');
-            const brandTxt = document.getElementById('text-brand');
+            const statusLabel = document.getElementById('status-text');
+            const brandLabel = document.getElementById('brand-text');
             
-            // 1. Activar animación de carga
+            // Activar fondo oscuro y animación del logo central
             overlay.classList.add('active-overlay');
             logo.classList.remove('spin-animation');
             void logo.offsetWidth; 
             logo.classList.add('spin-animation');
 
-            // 2. Justo cuando termina la animación (2.8 segundos)
+            // Cuando termina la animación (2.8 segundos)
             setTimeout(() => {
                 overlay.classList.remove('active-overlay');
                 
-                // CAMBIO DE TEXTO A MAYÚSCULAS
-                statusTxt.innerText = "AUTHENTIC";
-                brandTxt.innerText = "BARBAS HATS";
+                // CAMBIO DE TEXTO SOLICITADO
+                statusLabel.innerText = "AUTHENTIC";
+                brandLabel.innerText = "BARBAS HATS";
                 
-                // Efecto visual opcional: resaltar el cambio
-                statusTxt.style.color = "#000"; 
-                brandTxt.style.color = "#000";
-                
+                // Opcional: poner el texto de abajo en color negro fuerte para resaltar el cambio
+                brandLabel.style.color = "#000";
             }, 2800);
         }
     </script>
