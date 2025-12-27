@@ -15,21 +15,19 @@
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh; 
-            /* HABILITA EL MOVIMIENTO ARRIBA Y ABAJO */
+            /* Habilita el movimiento vertical */
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Estilos base */
         .header-logo { width: 90px; height: auto; margin-bottom: 10px; }
         
         .status { 
             font-size: 26px; font-weight: 800; letter-spacing: 4px; color: #000; margin: 5px 0; 
-            transition: all 0.4s ease; /* Transición suave para el cambio de texto */
         }
         .brand-name { 
             font-size: 13px; color: #888; font-weight: 600; margin-bottom: 25px; 
-            transition: all 0.4s ease;
+            transition: all 0.5s ease; /* Transición suave para los cambios de nombre */
         }
         
         .cap-container { 
@@ -42,24 +40,21 @@
         .scan-label { margin-top: 10px; font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: bold; }
         .scan-number { font-size: 22px; font-weight: 900; margin-top: 5px; margin-bottom: 30px; color: #000; }
 
-        /* BOTÓN VERIFY */
         .verify-button {
             background-color: #1a1a1a; color: white; padding: 15px 35px; border-radius: 50px;
             display: flex; align-items: center; justify-content: center; gap: 10px;
             cursor: pointer; font-weight: 800; font-size: 18px; letter-spacing: 2px;
             width: 220px; border: none; transition: transform 0.2s; 
-            margin-bottom: 60px; /* Espacio extra al final para permitir el scroll */
+            margin-bottom: 60px;
         }
         .verify-button:active { transform: scale(0.95); }
 
-        /* FONDO OSCURO (Overlay) */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); z-index: 50;
             opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
 
-        /* LOGO ANIMADO */
         #animated-logo {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0);
@@ -86,7 +81,7 @@
 
     <img src="https://capslux.com/cdn/shop/collections/Diseno_sin_titulo_8.png?v=1751835052&width=1500" class="header-logo">
     
-    <div id="status-text" class="status">AUTHENTIC</div>
+    <div class="status">AUTHENTIC</div>
     <div id="brand-text" class="brand-name">CT GALAXY</div>
 
     <div class="cap-container">
@@ -109,25 +104,28 @@
         function startVerification() {
             const logo = document.getElementById('animated-logo');
             const overlay = document.getElementById('overlay');
-            const statusLabel = document.getElementById('status-text');
             const brandLabel = document.getElementById('brand-text');
             
-            // Activar fondo oscuro y animación del logo central
+            // 1. Mostrar animación de carga
             overlay.classList.add('active-overlay');
             logo.classList.remove('spin-animation');
             void logo.offsetWidth; 
             logo.classList.add('spin-animation');
 
-            // Cuando termina la animación (2.8 segundos)
+            // 2. Al terminar la vuelta del logo (2.8s)
             setTimeout(() => {
                 overlay.classList.remove('active-overlay');
                 
-                // CAMBIO DE TEXTO SOLICITADO
-                statusLabel.innerText = "AUTHENTIC";
+                // Cambia a BARBAS HATS
                 brandLabel.innerText = "BARBAS HATS";
-                
-                // Opcional: poner el texto de abajo en color negro fuerte para resaltar el cambio
-                brandLabel.style.color = "#000";
+                brandLabel.style.color = "#000"; // Resaltamos el color
+
+                // 3. Dejarlo por 3 segundos y luego volver a CT GALAXY
+                setTimeout(() => {
+                    brandLabel.innerText = "CT GALAXY";
+                    brandLabel.style.color = "#888"; // Volver al color original
+                }, 3000); // 3000 milisegundos = 3 segundos
+
             }, 2800);
         }
     </script>
