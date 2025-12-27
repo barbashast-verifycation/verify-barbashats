@@ -10,48 +10,53 @@
             text-align: center; 
             background-color: #ffffff; 
             margin: 0; 
-            padding: 40px 0; /* Agregamos espacio arriba y abajo para que respire */
+            padding: 40px 0; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            min-height: 100vh; /* Permite que el cuerpo sea al menos del alto de la pantalla */
-            overflow-y: auto; /* HABILITA el scroll vertical */
-            -webkit-overflow-scrolling: touch; /* Suavidad en iPhone */
+            min-height: 100vh; 
+            overflow-y: auto; /* Habilita el movimiento arriba/abajo */
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Estilos base */
         .header-logo { width: 90px; height: auto; margin-bottom: 10px; }
-        .status { font-size: 26px; font-weight: 800; letter-spacing: 4px; color: #000; margin: 5px 0; }
-        .brand-name { font-size: 13px; color: #888; font-weight: 600; margin-bottom: 25px; }
+        
+        /* Agregamos una transición suave para cuando cambie el texto */
+        .status { 
+            font-size: 26px; font-weight: 800; letter-spacing: 4px; color: #000; margin: 5px 0; 
+            transition: all 0.5s ease;
+        }
+        .brand-name { 
+            font-size: 13px; color: #888; font-weight: 600; margin-bottom: 25px; 
+            transition: all 0.5s ease;
+        }
         
         .cap-container { 
             width: 85%; max-width: 350px; background: #f4f4f4; border-radius: 25px; 
             padding: 20px; box-sizing: border-box;
-            margin-bottom: 20px; /* Espacio antes de los números */
+            margin-bottom: 20px;
         }
         .cap-image { width: 100%; height: auto; border-radius: 15px; }
         
         .scan-label { margin-top: 10px; font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: bold; }
         .scan-number { font-size: 22px; font-weight: 900; margin-top: 5px; margin-bottom: 30px; color: #000; }
 
-        /* BOTÓN VERIFY */
         .verify-button {
             background-color: #1a1a1a; color: white; padding: 15px 35px; border-radius: 50px;
             display: flex; align-items: center; justify-content: center; gap: 10px;
             cursor: pointer; font-weight: 800; font-size: 18px; letter-spacing: 2px;
             width: 220px; border: none; transition: transform 0.2s; 
-            margin-bottom: 50px; /* Espacio al final para que no choque con el borde */
+            margin-bottom: 50px;
         }
         .verify-button:active { transform: scale(0.95); }
 
-        /* FONDO OSCURO (Overlay) */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); z-index: 50;
             opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
 
-        /* LOGO ANIMADO */
         #animated-logo {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0);
@@ -77,8 +82,8 @@
     <div id="overlay"></div>
 
     <img src="https://capslux.com/cdn/shop/collections/Diseno_sin_titulo_8.png?v=1751835052&width=1500" class="header-logo">
-    <div class="status">AUTHENTIC</div>
-    <div class="brand-name">CT GALAXY</div>
+    <div id="text-status" class="status">AUTHENTIC</div>
+    <div id="text-brand" class="brand-name">CT GALAXY</div>
 
     <div class="cap-container">
         <img src="https://drop-shop.mx/cdn/shop/files/a942fc97-e181-46de-af22-cf9da20754b3.jpg?v=1752198929" class="cap-image">
@@ -100,14 +105,27 @@
         function startVerification() {
             const logo = document.getElementById('animated-logo');
             const overlay = document.getElementById('overlay');
+            const statusTxt = document.getElementById('text-status');
+            const brandTxt = document.getElementById('text-brand');
             
+            // 1. Activar animación de carga
             overlay.classList.add('active-overlay');
             logo.classList.remove('spin-animation');
             void logo.offsetWidth; 
             logo.classList.add('spin-animation');
 
+            // 2. Justo cuando termina la animación (2.8 segundos)
             setTimeout(() => {
                 overlay.classList.remove('active-overlay');
+                
+                // CAMBIO DE TEXTO A MAYÚSCULAS
+                statusTxt.innerText = "AUTHENTIC";
+                brandTxt.innerText = "BARBAS HATS";
+                
+                // Efecto visual opcional: resaltar el cambio
+                statusTxt.style.color = "#000"; 
+                brandTxt.style.color = "#000";
+                
             }, 2800);
         }
     </script>
