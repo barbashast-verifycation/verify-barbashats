@@ -7,9 +7,16 @@
     <style>
         body { 
             font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            text-align: center; background-color: #ffffff; margin: 0; padding: 0;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;
-            overflow: hidden;
+            text-align: center; 
+            background-color: #ffffff; 
+            margin: 0; 
+            padding: 40px 0; /* Agregamos espacio arriba y abajo para que respire */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; /* Permite que el cuerpo sea al menos del alto de la pantalla */
+            overflow-y: auto; /* HABILITA el scroll vertical */
+            -webkit-overflow-scrolling: touch; /* Suavidad en iPhone */
         }
 
         /* Estilos base */
@@ -20,18 +27,20 @@
         .cap-container { 
             width: 85%; max-width: 350px; background: #f4f4f4; border-radius: 25px; 
             padding: 20px; box-sizing: border-box;
+            margin-bottom: 20px; /* Espacio antes de los números */
         }
         .cap-image { width: 100%; height: auto; border-radius: 15px; }
         
-        .scan-label { margin-top: 30px; font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: bold; }
-        .scan-number { font-size: 22px; font-weight: 900; margin-top: 5px; margin-bottom: 20px; color: #000; }
+        .scan-label { margin-top: 10px; font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: bold; }
+        .scan-number { font-size: 22px; font-weight: 900; margin-top: 5px; margin-bottom: 30px; color: #000; }
 
         /* BOTÓN VERIFY */
         .verify-button {
-            background-color: #1a1a1a; color: white; padding: 12px 30px; border-radius: 50px;
+            background-color: #1a1a1a; color: white; padding: 15px 35px; border-radius: 50px;
             display: flex; align-items: center; justify-content: center; gap: 10px;
             cursor: pointer; font-weight: 800; font-size: 18px; letter-spacing: 2px;
-            width: 200px; border: none; transition: transform 0.2s; z-index: 10;
+            width: 220px; border: none; transition: transform 0.2s; 
+            margin-bottom: 50px; /* Espacio al final para que no choque con el borde */
         }
         .verify-button:active { transform: scale(0.95); }
 
@@ -49,8 +58,7 @@
             width: 180px; z-index: 100; opacity: 0; pointer-events: none;
         }
 
-        /* Animaciones */
-        .active-overlay { opacity: 1 !important; }
+        .active-overlay { opacity: 1 !important; pointer-events: all !important; }
 
         .spin-animation {
             animation: spinAndFade 2.8s ease-in-out forwards;
@@ -93,13 +101,11 @@
             const logo = document.getElementById('animated-logo');
             const overlay = document.getElementById('overlay');
             
-            // Activar fondo oscuro y animación
             overlay.classList.add('active-overlay');
             logo.classList.remove('spin-animation');
             void logo.offsetWidth; 
             logo.classList.add('spin-animation');
 
-            // Quitar el fondo oscuro cuando termine la animación
             setTimeout(() => {
                 overlay.classList.remove('active-overlay');
             }, 2800);
